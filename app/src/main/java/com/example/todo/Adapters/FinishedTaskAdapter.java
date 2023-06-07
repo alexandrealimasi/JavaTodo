@@ -93,9 +93,7 @@ public class FinishedTaskAdapter extends RecyclerView.Adapter<FinishedTaskAdapte
             accordian_body = (RelativeLayout) itemView.findViewById(R.id.accordian_body);
             arrow = (ImageView) itemView.findViewById(R.id.arrow);
             deleteBtn = (ImageView) itemView.findViewById(R.id.deleteBtn);
-
-
-
+            
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

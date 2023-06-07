@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     TodoListAdapter todoListAdapter;
     RecyclerView recyclerView;
     TextView empty_tv;
-
+    VolleyService volleyService;
     ProgressBar progressBar;
     ArrayList<TodoModel> arrayList;
 
@@ -248,10 +248,10 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     public void getTasks() {
         arrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
-        String url = "http://192.168.1.87:3000/todo/fetchAll";
+//        String url = volleyService.getbaseUrl("/todo/fetchAl");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                url, null, new Response.Listener<JSONObject>() {
+                "http://192.168.0.114:3000/todo/fetchAl", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -343,7 +343,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
 
     // Delete Todo Method
     private void deleteTodo(final String id, final  int position) {
-        String url ="http://192.168.1.87:3000/todo/delete/"+id;
+        String url ="http://192.168.0.114:3000/todo/delete/"+id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null
                 , new Response.Listener<JSONObject>() {
@@ -374,7 +374,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     // Add Todo Task Method
     private void addTask(String title, String description) {
 
-        String apiKey="http://192.168.1.87:3000/todo/create";
+        String apiKey="http://192.168.0.114:3000/todo/create";
 
         HashMap<String, String> body = new HashMap<>();
         body.put("title", title);
@@ -430,7 +430,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     }
     // Update Todo Task Method
     private  void  updateTask(String id, String title, String description) {
-        String url = "http://192.168.1.87:3000/todo/update/"+id;
+        String url = "http://192.168.0.114:3000/todo/update/"+id;
         HashMap<String, String> body = new HashMap<>();
         body.put("title", title);
         body.put("description", description);
@@ -470,7 +470,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
     }
     // Update to finished task
     private void updateToFinishTodo(String id,final int position) {
-        String url = "http://192.168.1.87:3000/todo/update/"+id;
+        String url = "http://192.168.0.114:3000/todo/update/"+id;
         HashMap<String, String> body = new HashMap<>();
         body.put("finished", "true");
 
@@ -521,7 +521,6 @@ public class HomeFragment extends Fragment implements RecyclerViewClickListener 
         Toast.makeText(getActivity(), "Position "+ position, Toast.LENGTH_SHORT).show();
 
     }
-
     @Override
     public void onEditButtonClick(int position) {
         showUpdateDialog(arrayList.get(position).getId(), arrayList.get(position).getTitle(), arrayList.get(position).getDescription());

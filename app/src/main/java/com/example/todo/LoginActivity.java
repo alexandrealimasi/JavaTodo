@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private EditText email_ET, password_ET;
     ProgressBar progressBar;
-
+    VolleyService volleyService;
     private String email, password;
     UtilService utilService;
     SharedPreferenceClass sharedPreferenceClass;
@@ -88,9 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-
-        String apiKey="http://192.168.1.87:3000/user/login";
-
+        String apiKey=volleyService.getbaseUrl("/user/login");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 apiKey, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private TextView user_name, user_email;
     private CircleImageView userImage;
-
+    VolleyService volleyService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         user_name = (TextView) hdView.findViewById(R.id.username);
         user_email = (TextView) hdView.findViewById(R.id.user_email);
         userImage = (CircleImageView) hdView.findViewById(R.id.avatar);
-
+        volleyService=new VolleyService();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUserProfile() {
-        String url = " https://todoappyt.herokuapp.com/api/todo/auth";
+
+        String url = volleyService.getbaseUrl("/todo/fetchAll");
         final String token = sharedPreferenceClass.getValue_string("token");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
